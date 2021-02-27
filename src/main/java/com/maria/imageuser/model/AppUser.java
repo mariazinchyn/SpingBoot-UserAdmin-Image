@@ -20,8 +20,10 @@ public class AppUser implements UserDetails {
     private String password;
     private String role;
 
-    public AppUser(Long id, String username, String password, String role) {
-        this.id = id;
+    public AppUser(
+          //  Long id,
+            String username, String password, String role) {
+        //this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
