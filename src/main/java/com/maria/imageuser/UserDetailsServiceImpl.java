@@ -16,8 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private AppUserRepo appUserRepo;
 
     @Autowired
-    public UserDetailsServiceImpl(AppUserRepo appUserRepo,
-                                  PasswordEncoder passwordEncoder) {
+    public UserDetailsServiceImpl(AppUserRepo appUserRepo) {
         this.appUserRepo = appUserRepo;
        // this.passwordEncoder = passwordEncoder;
     }
