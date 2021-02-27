@@ -1,8 +1,11 @@
 package com.maria.imageuser;
 
+import com.maria.imageuser.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,10 +20,12 @@ import java.util.Collections;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
+    private AppUserRepo appUserRepo;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AppUserRepo appUserRepo) {
         this.userDetailsService = userDetailsService;
+        this.appUserRepo = appUserRepo;
     }
 
     @Override
@@ -39,5 +44,11 @@ auth.userDetailsService(userDetailsService);
 @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void get(){
+        AppUser appUser = new AppUser("Maria", passwordEncoder().encode("qwerty"), "USER");
+        appUserRepo.save(appUser);
     }
 }

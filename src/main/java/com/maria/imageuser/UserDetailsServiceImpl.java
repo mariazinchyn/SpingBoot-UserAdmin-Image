@@ -7,6 +7,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,8 +16,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private AppUserRepo appUserRepo;
 
     @Autowired
-    public UserDetailsServiceImpl(AppUserRepo appUserRepo) {
+    public UserDetailsServiceImpl(AppUserRepo appUserRepo,
+                                  PasswordEncoder passwordEncoder) {
         this.appUserRepo = appUserRepo;
+       // this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -24,9 +27,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return appUserRepo.findByUsername(s);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void get(){
-        AppUser appUser = new AppUser("Maria", "qwerty", "USER");
-        appUserRepo.save(appUser);
-    }
+
 }
