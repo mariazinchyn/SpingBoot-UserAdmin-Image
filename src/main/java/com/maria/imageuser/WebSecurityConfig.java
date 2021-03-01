@@ -37,7 +37,8 @@ auth.userDetailsService(userDetailsService);
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/test1").authenticated()
+                .antMatchers("/test1").hasRole("USER")
+                .antMatchers("/test2").hasRole("ADMIN")
                 .and()
                 .formLogin().permitAll();
     }
@@ -48,7 +49,14 @@ auth.userDetailsService(userDetailsService);
 
     @EventListener(ApplicationReadyEvent.class)
     public void get(){
-        AppUser appUser = new AppUser("Maria", passwordEncoder().encode("qwerty"), "USER");
-        appUserRepo.save(appUser);
+        AppUser appUserUser = new AppUser("Maria", passwordEncoder().encode("qwerty"),
+                "ROLE_USER");
+        AppUser appUserAdmin = new AppUser("MariaAdmin", passwordEncoder().encode("12345"),
+                "ROLE_ADMIN");
+        appUserRepo.save(appUserAdmin);
+        appUserRepo.save(appUserUser);
+
+
+
     }
 }
