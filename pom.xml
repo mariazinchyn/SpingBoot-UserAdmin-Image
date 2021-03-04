@@ -70,6 +70,19 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.3.4.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44 -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.29.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-taglib -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-taglib</artifactId>
+            <version>1.0.14</version>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
